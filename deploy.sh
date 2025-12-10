@@ -50,7 +50,6 @@ metadata:
 spec:
   repo: https://teknoir.github.io/swin-reid-embedding-service
   chart: swin-reid-embedding-service
-  version: 0.0.1
   targetNamespace: ${NAMESPACE}
   valuesContent: |-
     basePath: /${NAMESPACE}/swin-reid-embedding-service
