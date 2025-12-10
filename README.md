@@ -18,15 +18,13 @@ kubectl port-forward svc/swin-reid-embedding-service 8000:80 -n victra-poc
 Generate embeddings from person images:
 
 ```bash
-curl -i -X POST \                                                                                                                                                                                                                                                                     ✔  swin-reid-docker   at 20:51:50  
+curl -i -X POST \ 
   -F "file=@gnc0211-front-door-1-916f16c1-2619-2025-12-10T02:12:29.184Z.jpg" \
   http://localhost:8000/embed
 
 
 # OR using GCS URI
-
-
-curl -i -X POST \                                                                                                                                                                                                                                                                     ✔  swin-reid-docker   at 20:51:50  
+curl -i -X POST \
   -H "Content-Type: application/json" \
   -H "Accept: application/json" \
   -d '{"gs_uri":"gs://victra-poc.teknoir.cloud/media/person-cutouts/2025-12-10/victra-poc-03/nc0211-front-door-1-916f16c1-2619-2025-12-10T02:12:29.184Z.jpg"}' \
