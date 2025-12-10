@@ -4,11 +4,17 @@ A high-performance Re-identification (ReID) embedding service built with Swin Tr
 
 ### Deployment
 ```bash
-docker run --rm -p 8000:8000 \
-  us-docker.pkg.dev/teknoir/gcr.io/swin-reid-embedding-service:local-20251210-210820
+./deploy.sh
 ```
 
 ## API Usage
+In a separate terminal, port forward the service port:
+
+```bash
+kubectl port-forward svc/swin-reid-embedding-service 8000:80 -n victra-poc
+```
+
+
 Generate embeddings from person images:
 
 ```bash

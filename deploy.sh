@@ -52,7 +52,6 @@ spec:
   chart: swin-reid-embedding-service
   targetNamespace: ${NAMESPACE}
   valuesContent: |-
-    basePath: /${NAMESPACE}/swin-reid-embedding-service
     image:
       tag: ${BRANCH_NAME}-${SHORT_SHA}
 

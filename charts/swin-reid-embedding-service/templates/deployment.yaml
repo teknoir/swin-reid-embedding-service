@@ -13,6 +13,7 @@ spec:
       labels:
         application: swin-reid-embedding-service
     spec:
+      serviceAccountName: default-editor
       containers:
         - name: swin-reid-embedding-service
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

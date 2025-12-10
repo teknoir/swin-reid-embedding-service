@@ -1,5 +1,3 @@
-basePath: /swin-reid-embedding-service
-
 image:
   repository: us-docker.pkg.dev/teknoir/gcr.io/swin-reid-embedding-service
   tag: :local-20251210-210820
