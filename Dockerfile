@@ -19,7 +19,7 @@ EXPOSE 8000
 CMD ["python", "app.py"]
 
 # GPU image stage (uses NVIDIA CUDA runtime base)
-FROM nvidia/cuda:12.2.0-cudnn-runtime-ubuntu22.04 AS gpu
+FROM nvidia/cuda:12.4.0-runtime-ubuntu22.04 AS gpu
 
 ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /app
