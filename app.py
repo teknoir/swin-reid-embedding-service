@@ -8,6 +8,8 @@ from typing import Tuple
 import io
 from google.cloud import storage
 
+ort.preload_dlls()
+
 # ---- logging: simple stdout text logs ----
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
 logging.basicConfig(

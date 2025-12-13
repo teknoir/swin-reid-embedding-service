@@ -19,7 +19,7 @@ EXPOSE 8000
 CMD ["python", "app.py"]
 
 # GPU image stage (uses NVIDIA CUDA runtime base)
-FROM nvidia/cuda:12.8.0-cudnn-devel-ubuntu22.04 AS gpu
+FROM nvidia/cuda:12.6.1-cudnn-runtime-ubuntu22.04 AS gpu
 
 ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /app
@@ -42,8 +42,8 @@ COPY --from=us-docker.pkg.dev/teknoir/gcr.io/reid-swinb-1024-tracker-deepstream:
 ENV MODEL_PATH=reid_swinb_1024.onnx \
     INPUT_H=224 INPUT_W=224
 
-# Ensure CUDA libraries are on the runtime path
-ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
+# Ensure CUDA libraries are on the runtime path (include compat dir for symlinks)
+ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/compat:${LD_LIBRARY_PATH}
 
 EXPOSE 8000
 CMD ["python3", "app.py"]
