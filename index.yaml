@@ -3,6 +3,16 @@ entries:
   swin-reid-embedding-service:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2025-12-13T14:38:21.26036999Z"
+    description: Helm chart for deploying SWIN ReId Embedding Service services.
+    digest: 8a0b8dbd0398b9decfdadea5e176f54b8b6afd5d7c383dd3aa4dbc0d66adc27e
+    name: swin-reid-embedding-service
+    type: application
+    urls:
+    - https://github.com/teknoir/swin-reid-embedding-service/releases/download/swin-reid-embedding-service-0.0.5/swin-reid-embedding-service-0.0.5.tgz
+    version: 0.0.5
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2025-12-13T14:18:23.738294369Z"
     description: Helm chart for deploying SWIN ReId Embedding Service services.
     digest: a07bfec0864e5970958e7d1de2049361d97f6a2d7dd7228e3ac6e91bfb7f1cdf
@@ -31,4 +41,4 @@ entries:
     urls:
     - https://github.com/teknoir/swin-reid-embedding-service/releases/download/swin-reid-embedding-service-0.0.2/swin-reid-embedding-service-0.0.2.tgz
     version: 0.0.2
-generated: "2025-12-13T14:18:23.738314557Z"
+generated: "2025-12-13T14:38:21.260383756Z"
