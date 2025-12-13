@@ -54,5 +54,6 @@ spec:
   valuesContent: |-
     image:
       tag: ${BRANCH_NAME}-${SHORT_SHA}
-
+    gpu:
+      enabled: true
 EOF

@@ -1,1 +1,2 @@
-basePath: /some/swin-reid-embedding-service
+gpu:
+  enabled: true
