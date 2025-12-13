@@ -20,11 +20,39 @@ log = logging.getLogger("reid")
 INPUT_H = int(os.getenv("INPUT_H", 224))
 INPUT_W = int(os.getenv("INPUT_W", 224))
 MODEL_PATH = os.getenv("MODEL_PATH", "/models/reid_swinb_1024.onnx")
+# New: GPU toggle (default false). Accepts values like "true/1/yes" (case-insensitive)
+GPU_ENV = os.getenv("GPU", "false")
+GPU_ENABLED = str(GPU_ENV).strip().lower() in {"1", "true", "yes", "on"}
 
-session = ort.InferenceSession(MODEL_PATH)
+# Prefer explicit provider selection when GPU is enabled
+providers = None
+provider_options = None
+if GPU_ENABLED:
+    # Try CUDA first; if not available, fall back to CPU
+    try:
+        available = ort.get_available_providers()
+        if "CUDAExecutionProvider" in available:
+            providers = ["CUDAExecutionProvider", "CPUExecutionProvider"]
+            provider_options = [{}, {}]
+            log.info("GPU requested and CUDAExecutionProvider is available. Using CUDA -> CPU fallback.")
+        else:
+            log.warning("GPU requested but CUDAExecutionProvider not available. Falling back to CPU.")
+    except Exception as e:
+        log.exception("Error checking available providers; falling back to default provider selection.")
+
+# Create inference session (with providers if set)
+try:
+    if providers is not None:
+        session = ort.InferenceSession(MODEL_PATH, providers=providers, provider_options=provider_options)
+    else:
+        session = ort.InferenceSession(MODEL_PATH)
+except Exception as e:
+    log.exception("Failed to create ONNX Runtime InferenceSession")
+    raise
+
 in_name = session.get_inputs()[0].name
 out_name = session.get_outputs()[0].name
-log.info(f"model loaded path={MODEL_PATH} input={INPUT_H}x{INPUT_W} providers={session.get_providers()}")
+log.info(f"model loaded path={MODEL_PATH} input={INPUT_H}x{INPUT_W} providers={session.get_providers()} gpu_enabled={GPU_ENABLED}")
 
 app = FastAPI()
 

@@ -3,6 +3,7 @@ set -e
 #set -x
 
 POSITIONAL=()
+GPU_FLAG=false
 while [[ $# -gt 0 ]]
 do
 key="$1"
@@ -11,6 +12,10 @@ case $key in
     -t|--target)
     TARGET="$2"
     shift
+    shift
+    ;;
+    --gpu)
+    GPU_FLAG=true
     shift
     ;;
     *)
@@ -40,6 +45,15 @@ else
   DOMAIN="teknoir.cloud"
 fi
 
+# Choose image tag suffix and helm gpu.enabled based on flag
+if [[ "$GPU_FLAG" == "true" ]]; then
+  IMAGE_TAG_SUFFIX="-gpu"
+  GPU_ENABLED="true"
+else
+  IMAGE_TAG_SUFFIX="-cpu"
+  GPU_ENABLED="false"
+fi
+
 cat <<EOF | kubectl --context "$CONTEXT" --namespace "$NAMESPACE" apply -f -
 ---
 apiVersion: helm.cattle.io/v1
@@ -53,7 +67,7 @@ spec:
   targetNamespace: ${NAMESPACE}
   valuesContent: |-
     image:
-      tag: ${BRANCH_NAME}-${SHORT_SHA}
+      tag: ${BRANCH_NAME}-${SHORT_SHA}${IMAGE_TAG_SUFFIX}
     gpu:
-      enabled: true
+      enabled: ${GPU_ENABLED}
 EOF

@@ -16,7 +16,7 @@ spec:
       serviceAccountName: default-editor
 {{- if .Values.gpu.enabled  }}
       nodeSelector:
-        cloud.google.com/gke-accelerator: nvidia-l4
+        cloud.google.com/gke-accelerator: nvidia-tesla-t4
         cloud.google.com/gke-accelerator-count: "1"
 {{- end }}
       containers:
