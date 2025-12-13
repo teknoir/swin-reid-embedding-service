@@ -25,6 +25,9 @@ spec:
           ports:
             - containerPort: 8000
               name: http
+          env:
+            - name: GPU
+              value: {{ if .Values.gpu.enabled }}"true"{{ else }}"false"{{ end }}
           resources:
             requests:
               cpu: 250m
