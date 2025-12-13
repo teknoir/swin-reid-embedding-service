@@ -17,7 +17,6 @@ spec:
 {{- if .Values.gpu.enabled  }}
       nodeSelector:
         cloud.google.com/gke-accelerator: nvidia-tesla-t4
-        cloud.google.com/gke-accelerator-count: "1"
 {{- end }}
       containers:
         - name: swin-reid-embedding-service
