@@ -11,8 +11,8 @@ RUN pip install --no-cache-dir -r /app/requirements-cpu.txt
 COPY app.py ./
 
 # Model
-COPY --from=us-docker.pkg.dev/teknoir/gcr.io/reid-swinb-1024-tracker-deepstream:latest-retrained-20251209-132725 /tracker/reid-swinb-1024-tracker/reid_swinb_1024.onnx /app/
-ENV MODEL_PATH=reid_swinb_1024.onnx \
+COPY --from=us-docker.pkg.dev/teknoir/gcr.io/swin-reid-triton:latest-local-20260108-124622 /model/swin-reid/1/reid_swinb_1024_dynamic_v2.onnx /app/
+ENV MODEL_PATH=reid_swinb_1024_dynamic_v2.onnx \
     INPUT_H=224 INPUT_W=224
 
 EXPOSE 8000
@@ -38,8 +38,8 @@ RUN pip3 install --no-cache-dir -r /app/requirements-gpu.txt
 COPY app.py ./
 
 # Model
-COPY --from=us-docker.pkg.dev/teknoir/gcr.io/reid-swinb-1024-tracker-deepstream:latest-retrained-20251209-132725 /tracker/reid-swinb-1024-tracker/reid_swinb_1024.onnx /app/
-ENV MODEL_PATH=reid_swinb_1024.onnx \
+COPY --from=us-docker.pkg.dev/teknoir/gcr.io/swin-reid-triton:latest-local-20260108-124622 /model/swin-reid/1/reid_swinb_1024_dynamic_v2.onnx /app/
+ENV MODEL_PATH=reid_swinb_1024_dynamic_v2.onnx \
     INPUT_H=224 INPUT_W=224
 
 # Ensure CUDA libraries are on the runtime path (include compat dir for symlinks)
