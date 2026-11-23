@@ -1,5 +1,5 @@
 # CPU image stage
-FROM python:3.11-slim AS cpu
+FROM python:3.15-slim AS cpu
 
 WORKDIR /app
 
@@ -19,7 +19,7 @@ EXPOSE 8000
 CMD ["python", "app.py"]
 
 # GPU image stage (uses NVIDIA CUDA runtime base)
-FROM nvidia/cuda:12.6.1-cudnn-runtime-ubuntu22.04 AS gpu
+FROM nvidia/cuda:12.9.2-cudnn-runtime-ubuntu22.04 AS gpu
 
 ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /app
